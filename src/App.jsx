@@ -1,18 +1,19 @@
 import React from "react";
-import moviesFile from "./utils/moviesFile.json";
 import PaintMovies from "./components/PaintMovies";
+import useMovie from "./hook/useMovie";
+import FormControl from "./components/FormControl";
 
 function App() {
-  const { Search } = moviesFile;
+  const { movies } = useMovie();
 
   return (
     <div>
-      <h1>Busca tu pelicula</h1>
-      <form>
-        <input type="text" placeholder="Star war, Avenger, Minutos" />
-        <button type="submit">Buscar</button>
-      </form>
-      <PaintMovies Search={Search} />
+      <header>
+        <FormControl />
+      </header>
+      <main>
+        <PaintMovies movies={movies} />
+      </main>
     </div>
   );
 }
