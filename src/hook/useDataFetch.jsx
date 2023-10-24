@@ -1,10 +1,6 @@
-import useMovie from "./useMovie";
-
-export async function useDataFetch(query) {
-  const result = await fetch(
-    `http://www.omdbapi.com/?apikey=28c50872&s=${query}`
-  );
-  const json = await result.json();
-  const { movies } = useMovie(json);
-  return { movies: movies };
+export async function useDataFetch(query, cb) {
+  return fetch(`http://www.omdbapi.com/?apikey=28c50872&s=${query}`)
+    .then((resul) => resul.json())
+    .then((json) => cb(json))
+    .catch((err) => console.error(err));
 }
