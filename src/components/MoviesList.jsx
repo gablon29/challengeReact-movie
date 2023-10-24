@@ -1,7 +1,7 @@
 function MoviesList({ movies }) {
   return (
     <>
-      {movies.map(({ id, title, image, year }) => (
+      {movies?.map(({ id, title, image, year }) => (
         <ul key={id}>
           <li>{title}</li>
           <li>{year}</li>

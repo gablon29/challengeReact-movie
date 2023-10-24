@@ -1,15 +1,34 @@
 import React from "react";
 import PaintMovies from "./components/PaintMovies";
+import useSearch from "./hook/useSearch";
 import useMovie from "./hook/useMovie";
-import FormControl from "./components/FormControl";
 
 function App() {
-  const { movies } = useMovie();
+  const { query, setQuery, error } = useSearch();
+  const { movies, getMovies } = useMovie({ query });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    getMovies();
+  };
 
   return (
     <div>
       <header>
-        <FormControl />
+        <form onSubmit={handleSubmit}>
+          <input
+            style={{
+              border: "1px solid transparent",
+              borderColor: error ? "red" : "green",
+            }}
+            onChange={(event) => setQuery(event.target.value)}
+            value={query}
+            type="text"
+            placeholder="Star war, Avenger, Minutos"
+          />
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          <button type="submit">Buscar</button>
+        </form>
       </header>
       <main>
         <PaintMovies movies={movies} />
